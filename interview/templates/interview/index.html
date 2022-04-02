@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hubbler</title>
+</head>
+<body>
+    <!-- Load myfilters -->
+    {% load myfilters %}
+    <!-- if fields object exists -->
+    {% if fields %}
+        <!-- form  -->
+        <form action="{% url 'index'  %}" method="post">
+            <!-- csrf token -->
+            {% csrf_token %}
+            <!-- for each dictonary field in fields dictonary -->
+            {% for field in fields %}
+                <!-- create a label and input box -->
+                <label for="{{ field.lbl }}">{{ field.lbl }}</label> : <input type="{{ field.type  }}"  placeholder="{{ field.placeholder }}" name="{{ field|get:'_id' }}">
+                <!-- put line after each field -->
+                <br>
+            {% endfor %}
+            <!-- submit button -->
+            <input type="submit" value="Send">
+        </form>
+    <!-- if fields not exist print no data available -->
+    {% else %}
+        <p>No data available.</p>
+    {% endif %}
+</body>
+</html>
